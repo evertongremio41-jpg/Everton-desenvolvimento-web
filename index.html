@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Everton Leite — Desenvolvimento Web</title>
+<meta name="description" content="Sites institucionais, landing pages e sistemas sob medida. Orçamento rápido pelo WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B1E3A;
+    --bg-alt: #0F2A4A;
+    --line: rgba(143, 186, 232, 0.22);
+    --line-strong: rgba(143, 186, 232, 0.45);
+    --cyan: #4FD1FF;
+    --amber: #FFB627;
+    --paper: #F4F7FA;
+    --ink: #0B1E3A;
+    --whatsapp: #25D366;
+    --text: #EAF2FA;
+    --text-muted: #93AECB;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Manrope', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 40px 40px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 40px 40px,
+      var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  img,svg{ display:block; max-width:100%; }
+
+  :focus-visible{
+    outline:2px solid var(--cyan);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.75rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:18px;
+    height:1px;
+    background:var(--cyan);
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(11,30,58,0.82);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 0;
+  }
+  .brand{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:0.02em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand .dot{
+    width:8px; height:8px;
+    background:var(--cyan);
+    border-radius:1px;
+    box-shadow:0 0 10px var(--cyan);
+  }
+  .nav-links{
+    display:flex;
+    gap:32px;
+    font-size:0.92rem;
+    color:var(--text-muted);
+  }
+  .nav-links a{ transition:color .2s; position:relative; }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-cta{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:0.82rem;
+    font-weight:600;
+    letter-spacing:0.02em;
+    padding:11px 20px;
+    border-radius:3px;
+    border:1px solid var(--line-strong);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:transform .18s ease, border-color .18s ease, background .18s ease;
+    cursor:pointer;
+  }
+  .btn-primary{
+    background:var(--whatsapp);
+    border-color:var(--whatsapp);
+    color:#06210F;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); filter:brightness(1.06); }
+  .btn-ghost{ color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--cyan); color:var(--cyan); }
+
+  .menu-toggle{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:6px;
+  }
+  .menu-toggle span{
+    width:22px; height:2px; background:var(--text);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:96px 0 80px;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-family:var(--mono);
+    font-weight:800;
+    font-size:clamp(2.2rem, 4.2vw, 3.4rem);
+    line-height:1.12;
+    letter-spacing:-0.01em;
+    margin:18px 0 22px;
+  }
+  .hero h1 .hl{ color:var(--cyan); }
+  .hero p.lead{
+    font-size:1.08rem;
+    color:var(--text-muted);
+    max-width:46ch;
+    margin-bottom:34px;
+  }
+  .hero-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .hero-note{
+    margin-top:22px;
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--text-muted);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .hero-note .ping{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--whatsapp);
+    box-shadow:0 0 0 0 rgba(37,211,102,0.6);
+    animation:ping 2s infinite;
+  }
+  @keyframes ping{
+    0%{ box-shadow:0 0 0 0 rgba(37,211,102,0.55); }
+    70%{ box-shadow:0 0 0 8px rgba(37,211,102,0); }
+    100%{ box-shadow:0 0 0 0 rgba(37,211,102,0); }
+  }
+
+  /* Blueprint browser signature */
+  .blueprint-card{
+    position:relative;
+    background:rgba(15,42,74,0.5);
+    border:1px solid var(--line-strong);
+    border-radius:6px;
+    padding:22px;
+  }
+  .blueprint-card::before{
+    content:"FL-01 / HERO.SITE";
+    position:absolute;
+    top:-11px; left:16px;
+    background:var(--bg);
+    padding:0 8px;
+    font-family:var(--mono);
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    color:var(--text-muted);
+  }
+  .browser-frame{
+    width:100%;
+    height:auto;
+  }
+  .draw{
+    stroke-dasharray:900;
+    stroke-dashoffset:900;
+    animation:draw 2.6s ease forwards;
+  }
+  .draw2{
+    stroke-dasharray:600;
+    stroke-dashoffset:600;
+    animation:draw 2.2s ease forwards 0.5s;
+  }
+  .draw3{
+    stroke-dasharray:400;
+    stroke-dashoffset:400;
+    animation:draw 1.8s ease forwards 1s;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  .fade-block{
+    opacity:0;
+    animation:fadeIn .8s ease forwards 1.9s;
+  }
+  @keyframes fadeIn{ to{ opacity:1; } }
+
+  /* ---------- Section shell ---------- */
+  section{
+    padding:88px 0;
+    border-top:1px solid var(--line);
+    position:relative;
+  }
+  .section-head{
+    max-width:640px;
+    margin-bottom:52px;
+  }
+  .section-head h2{
+    font-family:var(--mono);
+    font-size:clamp(1.6rem, 2.6vw, 2.1rem);
+    margin-top:14px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  .section-head p{
+    color:var(--text-muted);
+    margin-top:14px;
+    font-size:1rem;
+  }
+
+  /* ---------- Services ---------- */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .service{
+    background:var(--bg-alt);
+    padding:32px 28px;
+    transition:background .25s ease;
+  }
+  .service:hover{ background:rgba(79,209,255,0.06); }
+  .service .tag{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    color:var(--cyan);
+    letter-spacing:0.08em;
+  }
+  .service h3{
+    font-size:1.18rem;
+    margin:12px 0 10px;
+    font-weight:700;
+  }
+  .service p{
+    color:var(--text-muted);
+    font-size:0.94rem;
+  }
+
+  /* ---------- Process (blueprint sheets) ---------- */
+  .process{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .sheet{
+    border:1px solid var(--line-strong);
+    border-radius:6px;
+    padding:22px 20px 26px;
+    position:relative;
+    background:linear-gradient(180deg, rgba(79,209,255,0.04), transparent 40%);
+  }
+  .sheet .code{
+    font-family:var(--mono);
+    font-size:0.75rem;
+    color:var(--amber);
+    letter-spacing:0.05em;
+  }
+  .sheet h4{
+    margin:10px 0 8px;
+    font-size:1.02rem;
+  }
+  .sheet p{
+    font-size:0.88rem;
+    color:var(--text-muted);
+  }
+  .sheet::after{
+    content:"";
+    position:absolute;
+    bottom:10px; right:10px;
+    width:10px; height:10px;
+    border-right:1px solid var(--line-strong);
+    border-bottom:1px solid var(--line-strong);
+  }
+
+  /* ---------- Sobre / Stack ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+    align-items:start;
+  }
+  .about-grid p{
+    color:var(--text-muted);
+    margin-bottom:16px;
+    font-size:1rem;
+  }
+  .stack-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:8px;
+  }
+  .stack-list li{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    border:1px solid var(--line-strong);
+    padding:8px 14px;
+    border-radius:3px;
+    color:var(--text);
+  }
+
+  /* ---------- Contato ---------- */
+  .contact-card{
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:10px;
+    padding:56px;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:40px;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .contact-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 85% 15%, rgba(11,30,58,0.06), transparent 55%);
+    pointer-events:none;
+  }
+  .contact-card h2{
+    font-family:var(--mono);
+    font-size:clamp(1.5rem,2.6vw,2rem);
+    font-weight:800;
+    line-height:1.2;
+  }
+  .contact-card p{
+    color:#3B5473;
+    margin-top:14px;
+    max-width:44ch;
+  }
+  .contact-actions{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .contact-btn{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:16px 20px;
+    border-radius:6px;
+    border:1px solid rgba(11,30,58,0.14);
+    background:#fff;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .contact-btn:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(11,30,58,0.12); }
+  .contact-btn .icon{
+    width:38px; height:38px;
+    border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .contact-btn.whatsapp .icon{ background:var(--whatsapp); }
+  .contact-btn.email .icon{ background:var(--ink); }
+  .contact-btn .label{
+    font-family:var(--mono);
+    font-size:0.7rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:#6C88A8;
+  }
+  .contact-btn .value{
+    font-weight:700;
+    font-size:0.98rem;
+  }
+
+  /* ---------- Investimento / Preços ---------- */
+  .pricing-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+    align-items:stretch;
+  }
+  .price-card{
+    display:flex;
+    flex-direction:column;
+    border:1px solid var(--line-strong);
+    border-radius:8px;
+    padding:32px 26px;
+    background:var(--bg-alt);
+    position:relative;
+  }
+  .price-card.featured{
+    border-color:var(--cyan);
+    box-shadow:0 0 0 1px var(--cyan), 0 20px 40px rgba(79,209,255,0.08);
+  }
+  .price-card.featured::before{
+    content:"Mais pedido";
+    position:absolute;
+    top:-12px; left:26px;
+    background:var(--cyan);
+    color:var(--ink);
+    font-family:var(--mono);
+    font-size:0.68rem;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:4px 10px;
+    border-radius:3px;
+  }
+  .price-card .tag{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    color:var(--cyan);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+  .price-card h3{
+    font-size:1.15rem;
+    font-weight:700;
+    margin:10px 0 16px;
+  }
+  .price-card .price{
+    font-family:var(--mono);
+    font-size:1.6rem;
+    font-weight:800;
+    color:var(--text);
+    margin-bottom:14px;
+  }
+  .price-card .price span{
+    font-size:1rem;
+    font-weight:500;
+    color:var(--text-muted);
+  }
+  .price-card .price-desc{
+    color:var(--text-muted);
+    font-size:0.92rem;
+    margin-bottom:18px;
+  }
+  .price-list{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+    margin-bottom:26px;
+    flex-grow:1;
+  }
+  .price-list li{
+    font-size:0.86rem;
+    color:var(--text);
+    padding-left:18px;
+    position:relative;
+  }
+  .price-list li::before{
+    content:"";
+    position:absolute;
+    left:0; top:7px;
+    width:7px; height:7px;
+    border:1px solid var(--cyan);
+    transform:rotate(45deg);
+  }
+  .price-btn{
+    justify-content:center;
+    text-align:center;
+    width:100%;
+  }
+  .price-footnote{
+    margin-top:28px;
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--text-muted);
+    text-align:center;
+  }
+  @media (max-width: 900px){
+    .pricing-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- Formulário de e-mail ---------- */
+  .email-form-card{
+    margin-top:20px;
+    background:var(--bg-alt);
+    border:1px solid var(--line-strong);
+    border-radius:10px;
+    padding:44px 56px;
+  }
+  .email-form-card h3{
+    font-family:var(--mono);
+    font-size:1.3rem;
+    font-weight:700;
+    margin:12px 0 24px;
+  }
+  .email-form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px 20px;
+  }
+  .field{ display:flex; flex-direction:column; gap:8px; }
+  .field-full{ grid-column:1 / -1; }
+  .field label{
+    font-family:var(--mono);
+    font-size:0.74rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--text-muted);
+  }
+  .field input, .field textarea{
+    background:rgba(11,30,58,0.5);
+    border:1px solid var(--line-strong);
+    border-radius:5px;
+    padding:12px 14px;
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:0.95rem;
+    resize:vertical;
+    transition:border-color .2s ease;
+  }
+  .field input:focus, .field textarea:focus{
+    border-color:var(--cyan);
+  }
+  .email-form .btn-primary{
+    justify-content:center;
+    padding:14px 20px;
+    margin-top:4px;
+  }
+  .field-note{
+    font-family:var(--mono);
+    font-size:0.76rem;
+    color:var(--text-muted);
+    text-align:center;
+  }
+  .field-note.sent{ color:var(--whatsapp); }
+  @media (max-width: 680px){
+    .email-form{ grid-template-columns:1fr; }
+    .email-form-card{ padding:32px 24px; }
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:32px 0;
+  }
+  .footer-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    font-family:var(--mono);
+    font-size:0.76rem;
+    color:var(--text-muted);
+  }
+
+  /* ---------- Floating WhatsApp ---------- */
+  .float-wa{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    z-index:60;
+    background:var(--whatsapp);
+    color:#06210F;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 20px rgba(0,0,0,0.35);
+    transition:transform .2s ease;
+  }
+  .float-wa:hover{ transform:scale(1.08); }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .services-grid{ grid-template-columns:1fr; }
+    .process{ grid-template-columns:1fr 1fr; }
+    .about-grid{ grid-template-columns:1fr; }
+    .contact-card{ grid-template-columns:1fr; padding:36px 26px; }
+  }
+  @media (max-width: 680px){
+    .nav-links{
+      position:absolute;
+      top:100%; left:0; right:0;
+      background:var(--bg);
+      flex-direction:column;
+      padding:20px 24px;
+      border-bottom:1px solid var(--line);
+      display:none;
+      gap:18px;
+    }
+    .nav-links.open{ display:flex; }
+    .menu-toggle{ display:flex; }
+    .nav-cta .btn-ghost{ display:none; }
+    .process{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#topo" class="brand"><span class="dot"></span>EVERTON LEITE<span style="color:var(--text-muted); font-weight:500;">/dev</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#servicos">Serviços</a>
+      <a href="#processo">Como funciona</a>
+      <a href="#investimento">Investimento</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#form-email" class="btn btn-ghost">E-mail</a>
+      <a href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener" class="btn btn-primary">WhatsApp</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="topo">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Desenvolvimento web · HTML · CSS · JS</p>
+        <h1>Seu site sai do <span class="hl">rascunho</span> e vai pro ar rápido.</h1>
+        <p class="lead">Crio sites institucionais, landing pages e sistemas sob medida — do primeiro esboço à publicação. Atendimento direto, sem intermediário e sem enrolação.</p>
+        <div class="hero-actions">
+          <a href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener" class="btn btn-primary">Chamar no WhatsApp →</a>
+          <a href="#servicos" class="btn btn-ghost">Ver serviços</a>
+        </div>
+        <p class="hero-note"><span class="ping"></span>Respondo pessoalmente pelo WhatsApp</p>
+      </div>
+
+      <div class="blueprint-card">
+        <svg class="browser-frame" viewBox="0 0 460 300" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="10" width="440" height="280" rx="6" fill="none" stroke="#4FD1FF" stroke-width="1.5" class="draw"/>
+          <line x1="10" y1="46" x2="450" y2="46" stroke="#4FD1FF" stroke-width="1.5" class="draw"/>
+          <circle cx="28" cy="28" r="4" fill="none" stroke="#4FD1FF" stroke-width="1.3" class="draw3"/>
+          <circle cx="44" cy="28" r="4" fill="none" stroke="#4FD1FF" stroke-width="1.3" class="draw3"/>
+          <circle cx="60" cy="28" r="4" fill="none" stroke="#4FD1FF" stroke-width="1.3" class="draw3"/>
+          <rect x="30" y="66" width="180" height="18" rx="2" fill="none" stroke="#93AECB" stroke-width="1.2" class="draw2"/>
+          <rect x="30" y="98" width="260" height="8" rx="2" fill="none" stroke="#3E6FA8" stroke-width="1" class="draw2"/>
+          <rect x="30" y="114" width="220" height="8" rx="2" fill="none" stroke="#3E6FA8" stroke-width="1" class="draw2"/>
+          <rect x="30" y="140" width="120" height="34" rx="4" fill="none" stroke="#FFB627" stroke-width="1.3" class="draw2"/>
+          <rect x="30" y="196" width="130" height="80" rx="4" fill="rgba(79,209,255,0.08)" stroke="#4FD1FF" stroke-width="1.2" class="fade-block"/>
+          <rect x="170" y="196" width="130" height="80" rx="4" fill="rgba(79,209,255,0.08)" stroke="#4FD1FF" stroke-width="1.2" class="fade-block"/>
+          <rect x="310" y="196" width="130" height="80" rx="4" fill="rgba(79,209,255,0.08)" stroke="#4FD1FF" stroke-width="1.2" class="fade-block"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">O que eu construo</p>
+        <h2>Do site simples ao sistema com dados em tempo real.</h2>
+        <p>Cada projeto é montado sob medida — sem templates genéricos que não conversam com o seu negócio.</p>
+      </div>
+      <div class="services-grid reveal">
+        <div class="service">
+          <p class="tag">01 · Presença</p>
+          <h3>Sites institucionais</h3>
+          <p>Site profissional para sua empresa aparecer bem no Google e passar confiança a quem visita.</p>
+        </div>
+        <div class="service">
+          <p class="tag">02 · Conversão</p>
+          <h3>Landing pages</h3>
+          <p>Página única, focada em fazer o visitante entrar em contato — ideal para campanhas e anúncios.</p>
+        </div>
+        <div class="service">
+          <p class="tag">03 · Sistemas</p>
+          <h3>Sistemas sob medida</h3>
+          <p>Painéis, dashboards e integrações com banco de dados em tempo real, feitos para a necessidade específica do seu negócio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESSO -->
+  <section id="processo">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Como funciona</p>
+        <h2>Quatro etapas, do briefing à entrega.</h2>
+      </div>
+      <div class="process reveal">
+        <div class="sheet">
+          <p class="code">FL-01</p>
+          <h4>Briefing</h4>
+          <p>Conversamos pelo WhatsApp sobre o que seu negócio precisa e o que o site vai resolver.</p>
+        </div>
+        <div class="sheet">
+          <p class="code">FL-02</p>
+          <h4>Protótipo</h4>
+          <p>Monto uma primeira versão para você visualizar antes de qualquer linha de código final.</p>
+        </div>
+        <div class="sheet">
+          <p class="code">FL-03</p>
+          <h4>Desenvolvimento</h4>
+          <p>Construo o site com HTML, CSS e JS, testando em celular e computador.</p>
+        </div>
+        <div class="sheet">
+          <p class="code">FL-04</p>
+          <h4>Entrega</h4>
+          <p>Site publicado, revisado com você e pronto para divulgar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <p class="eyebrow">Sobre</p>
+        <h2 style="font-family:var(--mono); font-size:1.9rem; margin:14px 0 18px;">Everton Leite</h2>
+        <p>Desenvolvedor web trabalhando com HTML, CSS e JavaScript, do site institucional mais simples a sistemas com dados em tempo real.</p>
+        <p>Atendimento direto — sem agência no meio, sem prazo escondido. Você fala comigo e acompanha o projeto do início ao fim.</p>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">Tecnologias</p>
+        <ul class="stack-list">
+          <li>HTML5</li>
+          <li>CSS3</li>
+          <li>JavaScript</li>
+          <li>Firebase</li>
+          <li>Bancos em tempo real</li>
+          <li>Integrações via API</li>
+          <li>Design responsivo</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTIMENTO -->
+  <section id="investimento">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Investimento</p>
+        <h2>Valores claros, sem letra miúda.</h2>
+        <p>Cada projeto é único, então os valores abaixo são faixas de referência. O orçamento fechado sai depois de conversarmos sobre o que você precisa — sem surpresa na hora de pagar.</p>
+      </div>
+      <div class="pricing-grid reveal">
+
+        <div class="price-card">
+          <p class="tag">Básico</p>
+          <h3>Landing page</h3>
+          <p class="price">R$ 800 <span>– R$ 2.500</span></p>
+          <p class="price-desc">Página única, focada em fazer o visitante entrar em contato. Ideal para campanhas e divulgação de um serviço específico.</p>
+          <ul class="price-list">
+            <li>Design responsivo (celular e computador)</li>
+            <li>Botão de WhatsApp integrado</li>
+            <li>Até 2 rodadas de ajustes</li>
+          </ul>
+          <a href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20de%20landing%20page." target="_blank" rel="noopener" class="btn btn-ghost price-btn">Pedir orçamento</a>
+        </div>
+
+        <div class="price-card featured">
+          <p class="tag">Padrão</p>
+          <h3>Site institucional</h3>
+          <p class="price">R$ 1.200 <span>– R$ 4.000</span></p>
+          <p class="price-desc">Site completo para apresentar sua empresa, com várias páginas e formulário de contato — a opção mais pedida.</p>
+          <ul class="price-list">
+            <li>Até 8 páginas (Início, Serviços, Sobre, Contato...)</li>
+            <li>Design responsivo e otimizado para o Google</li>
+            <li>Formulário de contato + WhatsApp integrado</li>
+            <li>Até 3 rodadas de ajustes</li>
+          </ul>
+          <a href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20de%20site%20institucional." target="_blank" rel="noopener" class="btn btn-primary price-btn">Pedir orçamento</a>
+        </div>
+
+        <div class="price-card">
+          <p class="tag">Sob medida</p>
+          <h3>Sistema com dados em tempo real</h3>
+          <p class="price">a partir de R$ 3.000</p>
+          <p class="price-desc">Painéis, dashboards e sistemas com banco de dados em tempo real, feitos sob medida para a necessidade do seu negócio.</p>
+          <ul class="price-list">
+            <li>Levantamento de requisitos e protótipo</li>
+            <li>Integrações (banco de dados, APIs, login)</li>
+            <li>Suporte após a entrega</li>
+          </ul>
+          <a href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20de%20sistema%20sob%20medida." target="_blank" rel="noopener" class="btn btn-ghost price-btn">Pedir orçamento</a>
+        </div>
+
+      </div>
+      <p class="price-footnote">Valores de referência para 2026, para projetos como desenvolvedor autônomo. Domínio e hospedagem não estão inclusos e são orçados à parte, conforme a necessidade do projeto.</p>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="wrap">
+      <div class="contact-card reveal">
+        <div>
+          <h2>Vamos tirar seu site do papel?</h2>
+          <p>Me chame pelo WhatsApp e conte o que você precisa. Costumo responder no mesmo dia.</p>
+        </div>
+        <div class="contact-actions">
+          <a class="contact-btn whatsapp" href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener">
+            <span class="icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.87 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.85 1h.003A7.94 7.94 0 0 0 20 12a7.86 7.86 0 0 0-2.4-5.68Zm-5.55 12.2h-.003a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.65.66-2.43-.16-.25a6.6 6.6 0 1 1 5.6 3.09Zm3.62-4.94c-.2-.1-1.17-.58-1.35-.64s-.32-.1-.45.1-.5.64-.62.77-.23.15-.43.05a5.4 5.4 0 0 1-1.6-.98 6 6 0 0 1-1.1-1.38c-.12-.2 0-.3.09-.4.1-.1.2-.23.3-.35.1-.11.13-.2.2-.33a.36.36 0 0 0 0-.35c-.05-.1-.45-1.08-.62-1.48-.16-.38-.33-.33-.45-.34h-.38a.74.74 0 0 0-.53.25 2.24 2.24 0 0 0-.7 1.67 3.9 3.9 0 0 0 .82 2.06 8.9 8.9 0 0 0 3.4 3.01c.48.2.85.33 1.14.42.48.15.92.13 1.26.08.38-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.09-.18-.14-.38-.24Z" fill="#06210F"/></svg>
+            </span>
+            <span>
+              <span class="label">WhatsApp</span><br>
+              <span class="value">(51) 98580-3243</span>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <div class="email-form-card reveal" id="form-email">
+        <p class="eyebrow">Prefere e-mail?</p>
+        <h3>Preencha, escreva o que precisa e envie.</h3>
+        <form id="emailForm" class="email-form">
+          <div class="field">
+            <label for="fName">Seu nome</label>
+            <input type="text" id="fName" name="fName" required>
+          </div>
+          <div class="field">
+            <label for="fEmail">Seu e-mail</label>
+            <input type="email" id="fEmail" name="fEmail" required>
+          </div>
+          <div class="field field-full">
+            <label for="fMsg">O que você precisa</label>
+            <textarea id="fMsg" name="fMsg" rows="4" required placeholder="Conte um pouco sobre o site ou sistema que você precisa..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary field-full" id="fSubmit">Enviar mensagem →</button>
+          <p class="field-note field-full" id="fNote">Ao enviar, seu app de e-mail vai abrir com a mensagem já pronta para luissilva0238472@gmail.com — é só confirmar o envio.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© <span id="year"></span> Everton Luís da Silva Leite. Todos os direitos reservados.</span>
+    <span>Rio Grande do Sul, BR</span>
+  </div>
+</footer>
+
+<a class="float-wa" href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.87 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.85 1h.003A7.94 7.94 0 0 0 20 12a7.86 7.86 0 0 0-2.4-5.68Zm-5.55 12.2h-.003a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.65.66-2.43-.16-.25a6.6 6.6 0 1 1 5.6 3.09Zm3.62-4.94c-.2-.1-1.17-.58-1.35-.64s-.32-.1-.45.1-.5.64-.62.77-.23.15-.43.05a5.4 5.4 0 0 1-1.6-.98 6 6 0 0 1-1.1-1.38c-.12-.2 0-.3.09-.4.1-.1.2-.23.3-.35.1-.11.13-.2.2-.33a.36.36 0 0 0 0-.35c-.05-.1-.45-1.08-.62-1.48-.16-.38-.33-.33-.45-.34h-.38a.74.74 0 0 0-.53.25 2.24 2.24 0 0 0-.7 1.67 3.9 3.9 0 0 0 .82 2.06 8.9 8.9 0 0 0 3.4 3.01c.48.2.85.33 1.14.42.48.15.92.13 1.26.08.38-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.09-.18-.14-.38-.24Z" fill="#06210F"/></svg>
+</a>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  const emailForm = document.getElementById('emailForm');
+  const fNote = document.getElementById('fNote');
+  emailForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('fName').value.trim();
+    const from = document.getElementById('fEmail').value.trim();
+    const msg = document.getElementById('fMsg').value.trim();
+
+    const subject = `Orçamento de site — ${name}`;
+    const body = `Nome: ${name}\nE-mail para retorno: ${from}\n\nMensagem:\n${msg}`;
+    const mailto = `mailto:luissilva0238472@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+
+    fNote.textContent = 'Abrindo seu app de e-mail com a mensagem pronta — é só confirmar o envio.';
+    fNote.classList.add('sent');
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+    </html>
