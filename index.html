@@ -1,970 +1,474 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Sites institucionais, landing pages e sistemas sob medida. Orçamento rápido pelo WhatsApp." />
 <title>Everton Leite — Desenvolvimento Web</title>
-<meta name="description" content="Sites institucionais, landing pages e sistemas sob medida. Orçamento rápido pelo WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #0B1E3A;
-    --bg-alt: #0F2A4A;
-    --line: rgba(143, 186, 232, 0.22);
-    --line-strong: rgba(143, 186, 232, 0.45);
-    --cyan: #4FD1FF;
-    --amber: #FFB627;
-    --paper: #F4F7FA;
-    --ink: #0B1E3A;
-    --whatsapp: #25D366;
-    --text: #EAF2FA;
-    --text-muted: #93AECB;
-    --mono: 'JetBrains Mono', monospace;
-    --sans: 'Manrope', sans-serif;
+    --bg:#0a1626;
+    --bg-2:#0d1c30;
+    --grid-line:rgba(120,160,210,0.09);
+    --panel:#0f1f34;
+    --card:#122439;
+    --border:#233752;
+    --border-soft:#1a2c45;
+    --text:#eef2f7;
+    --muted:#7f93ab;
+    --green:#3ecf6a;
+    --green-2:#33b85c;
+    --cyan:#3fc1e9;
+    --amber:#f5a623;
+    --white-card:#eef1f5;
+    --white-card-text:#0a1626;
+    --radius:16px;
   }
-
-  *{ margin:0; padding:0; box-sizing:border-box; }
-
-  html{ scroll-behavior:smooth; }
-
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
   body{
-    background:
-      linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 40px 40px,
-      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 40px 40px,
-      var(--bg);
-    color:var(--text);
-    font-family:var(--sans);
-    line-height:1.5;
-    overflow-x:hidden;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
-  }
-
-  a{ color:inherit; text-decoration:none; }
-  ul{ list-style:none; }
-  img,svg{ display:block; max-width:100%; }
-
-  :focus-visible{
-    outline:2px solid var(--cyan);
-    outline-offset:3px;
-  }
-
-  .wrap{
-    max-width:1180px;
-    margin:0 auto;
-    padding:0 24px;
-  }
-
-  .eyebrow{
-    font-family:var(--mono);
-    font-size:0.75rem;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:var(--cyan);
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .eyebrow::before{
-    content:"";
-    width:18px;
-    height:1px;
-    background:var(--cyan);
-  }
-
-  /* ---------- Header ---------- */
-  header{
-    position:sticky;
-    top:0;
-    z-index:50;
-    backdrop-filter:blur(10px);
-    background:rgba(11,30,58,0.82);
-    border-bottom:1px solid var(--line);
-  }
-  .nav{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:18px 0;
-  }
-  .brand{
-    font-family:var(--mono);
-    font-weight:700;
-    font-size:1.05rem;
-    letter-spacing:0.02em;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .brand .dot{
-    width:8px; height:8px;
-    background:var(--cyan);
-    border-radius:1px;
-    box-shadow:0 0 10px var(--cyan);
-  }
-  .nav-links{
-    display:flex;
-    gap:32px;
-    font-size:0.92rem;
-    color:var(--text-muted);
-  }
-  .nav-links a{ transition:color .2s; position:relative; }
-  .nav-links a:hover{ color:var(--text); }
-  .nav-cta{
-    display:flex;
-    align-items:center;
-    gap:14px;
-  }
-  .btn{
-    font-family:var(--mono);
-    font-size:0.82rem;
-    font-weight:600;
-    letter-spacing:0.02em;
-    padding:11px 20px;
-    border-radius:3px;
-    border:1px solid var(--line-strong);
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    transition:transform .18s ease, border-color .18s ease, background .18s ease;
-    cursor:pointer;
-  }
-  .btn-primary{
-    background:var(--whatsapp);
-    border-color:var(--whatsapp);
-    color:#06210F;
-  }
-  .btn-primary:hover{ transform:translateY(-2px); filter:brightness(1.06); }
-  .btn-ghost{ color:var(--text); }
-  .btn-ghost:hover{ border-color:var(--cyan); color:var(--cyan); }
-
-  .menu-toggle{
-    display:none;
-    flex-direction:column;
-    gap:5px;
-    background:none;
-    border:none;
-    cursor:pointer;
-    padding:6px;
-  }
-  .menu-toggle span{
-    width:22px; height:2px; background:var(--text);
-  }
-
-  /* ---------- Hero ---------- */
-  .hero{
-    padding:96px 0 80px;
-    position:relative;
-  }
-  .hero-grid{
-    display:grid;
-    grid-template-columns:1.05fr 0.95fr;
-    gap:56px;
-    align-items:center;
-  }
-  .hero h1{
-    font-family:var(--mono);
-    font-weight:800;
-    font-size:clamp(2.2rem, 4.2vw, 3.4rem);
-    line-height:1.12;
-    letter-spacing:-0.01em;
-    margin:18px 0 22px;
-  }
-  .hero h1 .hl{ color:var(--cyan); }
-  .hero p.lead{
-    font-size:1.08rem;
-    color:var(--text-muted);
-    max-width:46ch;
-    margin-bottom:34px;
-  }
-  .hero-actions{
-    display:flex;
-    gap:14px;
-    flex-wrap:wrap;
-  }
-  .hero-note{
-    margin-top:22px;
-    font-family:var(--mono);
-    font-size:0.78rem;
-    color:var(--text-muted);
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .hero-note .ping{
-    width:7px; height:7px; border-radius:50%;
-    background:var(--whatsapp);
-    box-shadow:0 0 0 0 rgba(37,211,102,0.6);
-    animation:ping 2s infinite;
-  }
-  @keyframes ping{
-    0%{ box-shadow:0 0 0 0 rgba(37,211,102,0.55); }
-    70%{ box-shadow:0 0 0 8px rgba(37,211,102,0); }
-    100%{ box-shadow:0 0 0 0 rgba(37,211,102,0); }
-  }
-
-  /* Blueprint browser signature */
-  .blueprint-card{
-    position:relative;
-    background:rgba(15,42,74,0.5);
-    border:1px solid var(--line-strong);
-    border-radius:6px;
-    padding:22px;
-  }
-  .blueprint-card::before{
-    content:"FL-01 / HERO.SITE";
-    position:absolute;
-    top:-11px; left:16px;
     background:var(--bg);
-    padding:0 8px;
-    font-family:var(--mono);
-    font-size:0.68rem;
-    letter-spacing:0.08em;
-    color:var(--text-muted);
-  }
-  .browser-frame{
-    width:100%;
-    height:auto;
-  }
-  .draw{
-    stroke-dasharray:900;
-    stroke-dashoffset:900;
-    animation:draw 2.6s ease forwards;
-  }
-  .draw2{
-    stroke-dasharray:600;
-    stroke-dashoffset:600;
-    animation:draw 2.2s ease forwards 0.5s;
-  }
-  .draw3{
-    stroke-dasharray:400;
-    stroke-dashoffset:400;
-    animation:draw 1.8s ease forwards 1s;
-  }
-  @keyframes draw{ to{ stroke-dashoffset:0; } }
-  .fade-block{
-    opacity:0;
-    animation:fadeIn .8s ease forwards 1.9s;
-  }
-  @keyframes fadeIn{ to{ opacity:1; } }
-
-  /* ---------- Section shell ---------- */
-  section{
-    padding:88px 0;
-    border-top:1px solid var(--line);
-    position:relative;
-  }
-  .section-head{
-    max-width:640px;
-    margin-bottom:52px;
-  }
-  .section-head h2{
-    font-family:var(--mono);
-    font-size:clamp(1.6rem, 2.6vw, 2.1rem);
-    margin-top:14px;
-    font-weight:700;
-    letter-spacing:-0.01em;
-  }
-  .section-head p{
-    color:var(--text-muted);
-    margin-top:14px;
-    font-size:1rem;
-  }
-
-  /* ---------- Services ---------- */
-  .services-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:1px;
-    background:var(--line);
-    border:1px solid var(--line);
-    border-radius:8px;
-    overflow:hidden;
-  }
-  .service{
-    background:var(--bg-alt);
-    padding:32px 28px;
-    transition:background .25s ease;
-  }
-  .service:hover{ background:rgba(79,209,255,0.06); }
-  .service .tag{
-    font-family:var(--mono);
-    font-size:0.72rem;
-    color:var(--cyan);
-    letter-spacing:0.08em;
-  }
-  .service h3{
-    font-size:1.18rem;
-    margin:12px 0 10px;
-    font-weight:700;
-  }
-  .service p{
-    color:var(--text-muted);
-    font-size:0.94rem;
-  }
-
-  /* ---------- Process (blueprint sheets) ---------- */
-  .process{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:20px;
-  }
-  .sheet{
-    border:1px solid var(--line-strong);
-    border-radius:6px;
-    padding:22px 20px 26px;
-    position:relative;
-    background:linear-gradient(180deg, rgba(79,209,255,0.04), transparent 40%);
-  }
-  .sheet .code{
-    font-family:var(--mono);
-    font-size:0.75rem;
-    color:var(--amber);
-    letter-spacing:0.05em;
-  }
-  .sheet h4{
-    margin:10px 0 8px;
-    font-size:1.02rem;
-  }
-  .sheet p{
-    font-size:0.88rem;
-    color:var(--text-muted);
-  }
-  .sheet::after{
-    content:"";
-    position:absolute;
-    bottom:10px; right:10px;
-    width:10px; height:10px;
-    border-right:1px solid var(--line-strong);
-    border-bottom:1px solid var(--line-strong);
-  }
-
-  /* ---------- Sobre / Stack ---------- */
-  .about-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:56px;
-    align-items:start;
-  }
-  .about-grid p{
-    color:var(--text-muted);
-    margin-bottom:16px;
-    font-size:1rem;
-  }
-  .stack-list{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    margin-top:8px;
-  }
-  .stack-list li{
-    font-family:var(--mono);
-    font-size:0.78rem;
-    border:1px solid var(--line-strong);
-    padding:8px 14px;
-    border-radius:3px;
     color:var(--text);
+    font-family:'JetBrains Mono','Space Mono',ui-monospace,monospace;
+    line-height:1.55;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size:40px 40px;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  ::selection{background:var(--green);color:#0a1626;}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,22,38,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1080px;margin:0 auto;}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.5px;font-size:15px;}
+  .logo-dot{width:10px;height:10px;background:var(--cyan);border-radius:2px;flex-shrink:0;}
+  .logo span{color:var(--muted);font-weight:500;}
+  .nav-links{display:flex;gap:30px;font-size:14px;color:var(--muted);}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{display:flex;gap:12px;align-items:center;}
+  .btn-ghost{
+    font-size:13px;color:var(--text);border:1px solid var(--border);padding:10px 18px;
+    border-radius:10px;font-weight:500;
+  }
+  .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
+  .btn-primary{
+    font-size:13px;font-weight:700;background:var(--green);color:#0a1626;
+    padding:10px 20px;border-radius:10px;border:none;cursor:pointer;
+    font-family:inherit;
+  }
+  .btn-primary:hover{background:var(--green-2);}
+  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
+  .hamburger span{width:22px;height:2px;background:var(--text);display:block;}
+  @media(max-width:800px){
+    .nav-links{display:none;}
+    .btn-ghost{display:none;}
   }
 
-  /* ---------- Contato ---------- */
-  .contact-card{
-    background:var(--paper);
-    color:var(--ink);
-    border-radius:10px;
-    padding:56px;
-    display:grid;
-    grid-template-columns:1.1fr 0.9fr;
-    gap:40px;
-    align-items:center;
-    position:relative;
-    overflow:hidden;
+  /* Hero */
+  .hero{padding:90px 24px 70px;}
+  .eyebrow{
+    display:flex;align-items:center;gap:12px;
+    font-size:12.5px;color:var(--cyan);letter-spacing:1.5px;text-transform:uppercase;
+    margin-bottom:22px;font-weight:600;
   }
-  .contact-card::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-      radial-gradient(circle at 85% 15%, rgba(11,30,58,0.06), transparent 55%);
-    pointer-events:none;
+  .eyebrow .rule{width:28px;height:1px;background:var(--cyan);}
+  h1{font-size:clamp(34px,6vw,58px);font-weight:800;line-height:1.12;max-width:760px;margin:0 0 20px;letter-spacing:-1px;}
+  h1 .hl{color:var(--cyan);}
+  .hero p{color:var(--muted);font-size:16px;max-width:560px;margin:0 0 30px;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:22px;}
+  .hero-ctas .btn-primary, .hero-ctas .btn-ghost{padding:14px 26px;font-size:14px;}
+  .hero-note{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);}
+  .dot-live{width:8px;height:8px;background:var(--green);border-radius:50%;flex-shrink:0;}
+
+  section{padding:76px 24px;border-top:1px solid var(--border-soft);}
+  .section-tag{
+    display:flex;align-items:center;gap:12px;
+    font-size:12.5px;color:var(--cyan);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;
   }
-  .contact-card h2{
-    font-family:var(--mono);
-    font-size:clamp(1.5rem,2.6vw,2rem);
-    font-weight:800;
-    line-height:1.2;
+  .section-tag .rule{width:28px;height:1px;background:var(--cyan);}
+  .section-title{font-size:clamp(26px,4vw,38px);font-weight:800;max-width:640px;margin-bottom:14px;letter-spacing:-0.5px;}
+  .section-sub{color:var(--muted);max-width:560px;margin-bottom:44px;font-size:14.5px;}
+
+  /* Servicos */
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .grid-3 .card{border:none;border-bottom:1px solid var(--border);border-radius:0;}
+  .grid-3 .card:not(:last-child){border-right:1px solid var(--border);}
+  @media(max-width:800px){
+    .grid-3{grid-template-columns:1fr;}
+    .grid-3 .card:not(:last-child){border-right:none;}
   }
-  .contact-card p{
-    color:#3B5473;
-    margin-top:14px;
-    max-width:44ch;
+  .card{background:var(--card);padding:30px;position:relative;}
+  .card .num{font-size:12px;color:var(--cyan);font-weight:700;letter-spacing:1px;margin-bottom:16px;}
+  .card h3{font-size:20px;font-weight:700;margin-bottom:10px;}
+  .card p{color:var(--muted);font-size:14px;}
+
+  /* Processo */
+  .steps{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  @media(max-width:640px){.steps{grid-template-columns:1fr;}}
+  .step{
+    border:1px solid var(--border);border-radius:var(--radius);padding:26px;
+    background:var(--card);position:relative;
   }
-  .contact-actions{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
+  .step::after{
+    content:"";position:absolute;bottom:12px;right:12px;width:14px;height:14px;
+    border-bottom:2px solid var(--border);border-right:2px solid var(--border);
   }
-  .contact-btn{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:16px 20px;
-    border-radius:6px;
-    border:1px solid rgba(11,30,58,0.14);
-    background:#fff;
-    transition:transform .18s ease, box-shadow .18s ease;
-  }
-  .contact-btn:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(11,30,58,0.12); }
-  .contact-btn .icon{
-    width:38px; height:38px;
-    border-radius:6px;
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-  }
-  .contact-btn.whatsapp .icon{ background:var(--whatsapp); }
-  .contact-btn.email .icon{ background:var(--ink); }
-  .contact-btn .label{
-    font-family:var(--mono);
-    font-size:0.7rem;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:#6C88A8;
-  }
-  .contact-btn .value{
-    font-weight:700;
-    font-size:0.98rem;
+  .step .tag{font-size:12.5px;color:var(--amber);font-weight:700;margin-bottom:12px;letter-spacing:1px;}
+  .step h4{font-size:17px;font-weight:700;margin-bottom:8px;}
+  .step p{color:var(--muted);font-size:13.5px;}
+
+  /* Sobre */
+  .sobre{display:grid;grid-template-columns:1.1fr 0.9fr;gap:50px;align-items:start;}
+  @media(max-width:800px){.sobre{grid-template-columns:1fr;}}
+  .sobre p{color:var(--muted);margin-bottom:16px;font-size:14.5px;}
+  .tech-list{display:flex;flex-wrap:wrap;gap:10px;}
+  .tech-pill{
+    font-size:13px;color:var(--text);background:var(--card);border:1px solid var(--border);
+    padding:10px 16px;border-radius:10px;
   }
 
-  /* ---------- Investimento / Preços ---------- */
-  .pricing-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:22px;
-    align-items:stretch;
+  /* Investimento teaser */
+  .invest-teaser{
+    background:var(--white-card);color:var(--white-card-text);
+    border-radius:var(--radius);padding:44px;
   }
-  .price-card{
-    display:flex;
-    flex-direction:column;
-    border:1px solid var(--line-strong);
-    border-radius:8px;
-    padding:32px 26px;
-    background:var(--bg-alt);
-    position:relative;
+  .invest-teaser h3{font-size:24px;font-weight:800;margin-bottom:14px;letter-spacing:-0.5px;}
+  .invest-teaser p{color:#3d4a5c;font-size:14.5px;max-width:460px;margin:0 0 26px;}
+  .invest-teaser .actions{display:flex;gap:12px;flex-wrap:wrap;}
+  .invest-teaser .btn-primary{padding:13px 22px;}
+  .invest-teaser .btn-outline{
+    padding:13px 22px;border-radius:10px;border:1px solid #c6cfdb;color:var(--white-card-text);
+    font-size:13px;font-weight:600;
   }
-  .price-card.featured{
-    border-color:var(--cyan);
-    box-shadow:0 0 0 1px var(--cyan), 0 20px 40px rgba(79,209,255,0.08);
-  }
-  .price-card.featured::before{
-    content:"Mais pedido";
-    position:absolute;
-    top:-12px; left:26px;
-    background:var(--cyan);
-    color:var(--ink);
-    font-family:var(--mono);
-    font-size:0.68rem;
-    font-weight:700;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    padding:4px 10px;
-    border-radius:3px;
-  }
-  .price-card .tag{
-    font-family:var(--mono);
-    font-size:0.72rem;
-    color:var(--cyan);
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-  }
-  .price-card h3{
-    font-size:1.15rem;
-    font-weight:700;
-    margin:10px 0 16px;
-  }
-  .price-card .price{
-    font-family:var(--mono);
-    font-size:1.6rem;
-    font-weight:800;
-    color:var(--text);
-    margin-bottom:14px;
-  }
-  .price-card .price span{
-    font-size:1rem;
-    font-weight:500;
-    color:var(--text-muted);
-  }
-  .price-card .price-desc{
-    color:var(--text-muted);
-    font-size:0.92rem;
-    margin-bottom:18px;
-  }
-  .price-list{
-    display:flex;
-    flex-direction:column;
-    gap:9px;
-    margin-bottom:26px;
-    flex-grow:1;
-  }
-  .price-list li{
-    font-size:0.86rem;
-    color:var(--text);
-    padding-left:18px;
-    position:relative;
-  }
-  .price-list li::before{
-    content:"";
-    position:absolute;
-    left:0; top:7px;
-    width:7px; height:7px;
-    border:1px solid var(--cyan);
-    transform:rotate(45deg);
-  }
-  .price-btn{
-    justify-content:center;
-    text-align:center;
-    width:100%;
-  }
-  .price-footnote{
-    margin-top:28px;
-    font-family:var(--mono);
-    font-size:0.78rem;
-    color:var(--text-muted);
-    text-align:center;
-  }
-  @media (max-width: 900px){
-    .pricing-grid{ grid-template-columns:1fr; }
-  }
+  .invest-teaser .btn-outline:hover{border-color:var(--white-card-text);}
 
-  /* ---------- Formulário de e-mail ---------- */
-  .email-form-card{
-    margin-top:20px;
-    background:var(--bg-alt);
-    border:1px solid var(--line-strong);
-    border-radius:10px;
-    padding:44px 56px;
+  /* Contato */
+  .contato{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:800px){.contato{grid-template-columns:1fr;}}
+  .contato-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:30px;}
+  .contato-card h3{font-size:17px;font-weight:700;margin-bottom:10px;}
+  .contato-card p{color:var(--muted);font-size:13.5px;margin-bottom:22px;}
+  form{display:flex;flex-direction:column;gap:12px;}
+  input, textarea{
+    background:var(--bg-2);border:1px solid var(--border);border-radius:10px;
+    padding:13px 14px;color:var(--text);font-size:13.5px;font-family:inherit;
   }
-  .email-form-card h3{
-    font-family:var(--mono);
-    font-size:1.3rem;
-    font-weight:700;
-    margin:12px 0 24px;
+  input:focus, textarea:focus{outline:none;border-color:var(--cyan);}
+  textarea{resize:vertical;min-height:90px;}
+  form .btn-primary{padding:13px;text-align:center;}
+  .contato-final{
+    background:var(--white-card);color:var(--white-card-text);
+    border-radius:var(--radius);padding:44px;margin-bottom:20px;
   }
-  .email-form{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px 20px;
+  .contato-final h3{font-size:26px;font-weight:800;margin-bottom:14px;letter-spacing:-0.5px;}
+  .contato-final p{color:#3d4a5c;font-size:14.5px;max-width:460px;margin:0 0 24px;}
+  .whatsapp-chip{
+    display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #d7dee7;
+    border-radius:12px;padding:16px 18px;max-width:340px;
   }
-  .field{ display:flex; flex-direction:column; gap:8px; }
-  .field-full{ grid-column:1 / -1; }
-  .field label{
-    font-family:var(--mono);
-    font-size:0.74rem;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:var(--text-muted);
-  }
-  .field input, .field textarea{
-    background:rgba(11,30,58,0.5);
-    border:1px solid var(--line-strong);
-    border-radius:5px;
-    padding:12px 14px;
-    color:var(--text);
-    font-family:var(--sans);
-    font-size:0.95rem;
-    resize:vertical;
-    transition:border-color .2s ease;
-  }
-  .field input:focus, .field textarea:focus{
-    border-color:var(--cyan);
-  }
-  .email-form .btn-primary{
-    justify-content:center;
-    padding:14px 20px;
-    margin-top:4px;
-  }
-  .field-note{
-    font-family:var(--mono);
-    font-size:0.76rem;
-    color:var(--text-muted);
-    text-align:center;
-  }
-  .field-note.sent{ color:var(--whatsapp); }
-  @media (max-width: 680px){
-    .email-form{ grid-template-columns:1fr; }
-    .email-form-card{ padding:32px 24px; }
-  }
+  .whatsapp-chip .icon{width:40px;height:40px;background:var(--green);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;}
+  .whatsapp-chip .label{font-size:11.5px;color:#8792a1;letter-spacing:1px;font-weight:600;}
+  .whatsapp-chip .number{font-size:16px;font-weight:700;color:var(--white-card-text);}
 
-  /* ---------- Footer ---------- */
-  footer{
-    border-top:1px solid var(--line);
-    padding:32px 0;
-  }
-  .footer-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:12px;
-    font-family:var(--mono);
-    font-size:0.76rem;
-    color:var(--text-muted);
-  }
+  footer{padding:36px 24px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--border-soft);}
 
-  /* ---------- Floating WhatsApp ---------- */
-  .float-wa{
-    position:fixed;
-    bottom:24px;
-    right:24px;
-    z-index:60;
-    background:var(--whatsapp);
-    color:#06210F;
-    width:56px;
-    height:56px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 6px 20px rgba(0,0,0,0.35);
-    transition:transform .2s ease;
+  /* Chat widget */
+  #chat-toggle{
+    position:fixed;bottom:24px;right:24px;z-index:100;
+    width:58px;height:58px;border-radius:14px;
+    background:var(--green);color:#0a1626;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 30px rgba(62,207,106,0.35);
+    font-size:24px;
   }
-  .float-wa:hover{ transform:scale(1.08); }
-
-  /* ---------- Reveal on scroll ---------- */
-  .reveal{
-    opacity:0;
-    transform:translateY(16px);
-    transition:opacity .6s ease, transform .6s ease;
+  #chat-toggle:hover{background:var(--green-2);}
+  #chat-panel{
+    position:fixed;bottom:94px;right:24px;z-index:100;
+    width:350px;max-width:calc(100vw - 32px);height:490px;max-height:calc(100vh - 140px);
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+    display:none;flex-direction:column;overflow:hidden;
+    font-family:'JetBrains Mono','Space Mono',ui-monospace,monospace;
   }
-  .reveal.in{
-    opacity:1;
-    transform:translateY(0);
+  #chat-panel.open{display:flex;}
+  .chat-header{
+    display:flex;align-items:center;gap:10px;padding:16px;
+    background:var(--bg-2);border-bottom:1px solid var(--border-soft);
   }
-
-  /* ---------- Responsive ---------- */
-  @media (max-width: 900px){
-    .hero-grid{ grid-template-columns:1fr; }
-    .services-grid{ grid-template-columns:1fr; }
-    .process{ grid-template-columns:1fr 1fr; }
-    .about-grid{ grid-template-columns:1fr; }
-    .contact-card{ grid-template-columns:1fr; padding:36px 26px; }
+  .chat-avatar{width:34px;height:34px;border-radius:8px;background:var(--cyan);color:#0a1626;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;}
+  .chat-header-text p{font-size:13px;font-weight:700;line-height:1.3;}
+  .chat-header-text span{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px;}
+  .chat-header-text span::before{content:"";width:6px;height:6px;background:var(--green);border-radius:50%;}
+  .chat-close{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;font-family:inherit;}
+  .chat-close:hover{color:var(--text);}
+  #chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;}
+  .msg{max-width:84%;padding:11px 14px;border-radius:12px;font-size:13px;line-height:1.5;white-space:pre-wrap;}
+  .msg.user{align-self:flex-end;background:var(--green);color:#0a1626;font-weight:500;border-bottom-right-radius:3px;}
+  .msg.bot{align-self:flex-start;background:var(--card);border:1px solid var(--border);border-bottom-left-radius:3px;}
+  .typing{align-self:flex-start;background:var(--card);border:1px solid var(--border);border-radius:12px;border-bottom-left-radius:3px;padding:13px 15px;display:flex;gap:4px;}
+  .typing span{width:5px;height:5px;background:var(--muted);border-radius:50%;animation:bounce 1.2s infinite;}
+  .typing span:nth-child(2){animation-delay:.15s;}
+  .typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-4px);}}
+  .suggestions{display:flex;flex-direction:column;gap:6px;padding:0 16px 12px;}
+  .sugg-btn{
+    text-align:left;font-size:12px;color:var(--muted);background:var(--card);
+    border:1px solid var(--border);border-radius:8px;padding:10px 12px;cursor:pointer;
+    font-family:inherit;
   }
-  @media (max-width: 680px){
-    .nav-links{
-      position:absolute;
-      top:100%; left:0; right:0;
-      background:var(--bg);
-      flex-direction:column;
-      padding:20px 24px;
-      border-bottom:1px solid var(--line);
-      display:none;
-      gap:18px;
-    }
-    .nav-links.open{ display:flex; }
-    .menu-toggle{ display:flex; }
-    .nav-cta .btn-ghost{ display:none; }
-    .process{ grid-template-columns:1fr; }
+  .sugg-btn:hover{color:var(--text);border-color:var(--cyan);}
+  .chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border-soft);background:var(--bg-2);}
+  #chat-input{
+    flex:1;background:var(--card);border:1px solid var(--border);border-radius:10px;
+    padding:11px 14px;color:var(--text);font-size:13px;font-family:inherit;
   }
+  #chat-input:focus{outline:none;border-color:var(--cyan);}
+  #chat-send{
+    width:38px;height:38px;border-radius:10px;background:var(--green);border:none;color:#0a1626;
+    cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;
+  }
+  #chat-send:disabled{opacity:.4;cursor:default;}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="wrap nav">
-    <a href="#topo" class="brand"><span class="dot"></span>EVERTON LEITE<span style="color:var(--text-muted); font-weight:500;">/dev</span></a>
-    <nav class="nav-links" id="navLinks">
+  <nav>
+    <div class="logo"><span class="logo-dot"></span>EVERTON LEITE <span>/dev</span></div>
+    <div class="nav-links">
       <a href="#servicos">Serviços</a>
       <a href="#processo">Como funciona</a>
       <a href="#investimento">Investimento</a>
       <a href="#sobre">Sobre</a>
       <a href="#contato">Contato</a>
-    </nav>
-    <div class="nav-cta">
-      <a href="#form-email" class="btn btn-ghost">E-mail</a>
-      <a href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener" class="btn btn-primary">WhatsApp</a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
     </div>
-  </div>
+    <div class="nav-cta">
+      <a class="btn-ghost" href="#contato">E-mail</a>
+      <a class="btn-primary" href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20quero%20um%20or%C3%A7amento." target="_blank">WhatsApp</a>
+    </div>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
 </header>
 
-<main id="topo">
+<section class="hero" style="border-top:none;">
+  <p class="eyebrow"><span class="rule"></span>Desenvolvimento web · HTML · CSS · JS</p>
+  <h1>Seu site sai do <span class="hl">rascunho</span> e vai pro ar rápido.</h1>
+  <p>Crio sites institucionais, landing pages e sistemas sob medida — do primeiro esboço à publicação. Atendimento direto, sem intermediário e sem enrolação.</p>
+  <div class="hero-ctas">
+    <a class="btn-primary" href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20quero%20um%20or%C3%A7amento." target="_blank">Chamar no WhatsApp →</a>
+    <a class="btn-ghost" href="#servicos">Ver serviços</a>
+  </div>
+  <p class="hero-note"><span class="dot-live"></span>Respondo pessoalmente pelo WhatsApp</p>
+</section>
 
-  <!-- HERO -->
-  <section class="hero" style="border-top:none;">
-    <div class="wrap hero-grid">
+<section id="servicos">
+  <p class="section-tag"><span class="rule"></span>O que eu construo</p>
+  <h2 class="section-title">Do site simples ao sistema com dados em tempo real.</h2>
+  <p class="section-sub">Cada projeto é montado sob medida — sem templates genéricos que não conversam com o seu negócio.</p>
+  <div class="grid-3">
+    <div class="card">
+      <p class="num">01 · Presença</p>
+      <h3>Sites institucionais</h3>
+      <p>Site profissional para sua empresa aparecer bem no Google e passar confiança a quem visita.</p>
+    </div>
+    <div class="card">
+      <p class="num">02 · Conversão</p>
+      <h3>Landing pages</h3>
+      <p>Página única, focada em fazer o visitante entrar em contato — ideal para campanhas e anúncios.</p>
+    </div>
+    <div class="card">
+      <p class="num">03 · Sistemas</p>
+      <h3>Sistemas sob medida</h3>
+      <p>Painéis, dashboards e integrações com banco de dados em tempo real, feitos para a necessidade específica do seu negócio.</p>
+    </div>
+  </div>
+</section>
+
+<section id="processo">
+  <p class="section-tag"><span class="rule"></span>Como funciona</p>
+  <h2 class="section-title">Quatro etapas, do briefing à entrega.</h2>
+  <div class="steps">
+    <div class="step"><p class="tag">FL-01</p><h4>Briefing</h4><p>Conversamos pelo WhatsApp sobre o que seu negócio precisa e o que o site vai resolver.</p></div>
+    <div class="step"><p class="tag">FL-02</p><h4>Protótipo</h4><p>Monto uma primeira versão para você visualizar antes de qualquer linha de código final.</p></div>
+    <div class="step"><p class="tag">FL-03</p><h4>Desenvolvimento</h4><p>Construo o site com HTML, CSS e JS, testando em celular e computador.</p></div>
+    <div class="step"><p class="tag">FL-04</p><h4>Entrega</h4><p>Site publicado, revisado com você e pronto para divulgar.</p></div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="sobre">
+    <div>
+      <p class="section-tag"><span class="rule"></span>Sobre</p>
+      <h2 class="section-title">Everton Leite</h2>
+      <p>Desenvolvedor web trabalhando com HTML, CSS e JavaScript, do site institucional mais simples a sistemas com dados em tempo real.</p>
+      <p>Atendimento direto — sem agência no meio, sem prazo escondido. Você fala comigo e acompanha o projeto do início ao fim.</p>
+    </div>
+    <div>
+      <p class="section-tag"><span class="rule"></span>Tecnologias</p>
+      <div class="tech-list">
+        <span class="tech-pill">HTML5</span>
+        <span class="tech-pill">CSS3</span>
+        <span class="tech-pill">JavaScript</span>
+        <span class="tech-pill">Firebase</span>
+        <span class="tech-pill">Bancos em tempo real</span>
+        <span class="tech-pill">Integrações via API</span>
+        <span class="tech-pill">Design responsivo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="investimento">
+  <p class="section-tag"><span class="rule"></span>Investimento</p>
+  <h2 class="section-title">Valores claros, sem letra miúda.</h2>
+  <p class="section-sub">Cada projeto é único, então prefiro te passar a faixa certa direto — sem chutar valores fora do contexto do seu projeto.</p>
+  <div class="invest-teaser">
+    <h3>Quer saber os valores?</h3>
+    <p>Pergunta pro assistente ali no cantinho 💬 — ele te passa as faixas de referência na hora, ou chama direto no WhatsApp que eu fecho o orçamento certinho com você.</p>
+    <div class="actions">
+      <button class="btn-primary" onclick="toggleChat(true); document.getElementById('chat-input').focus();">Perguntar no chat →</button>
+      <a class="btn-outline" href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Quero%20saber%20os%20valores%20de%20um%20site." target="_blank">Perguntar no WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <p class="section-tag"><span class="rule"></span>Contato</p>
+  <div class="contato-final">
+    <h3>Vamos tirar seu site do papel?</h3>
+    <p>Me chame pelo WhatsApp e conte o que você precisa. Costumo responder no mesmo dia.</p>
+    <div class="whatsapp-chip">
+      <div class="icon">💬</div>
       <div>
-        <p class="eyebrow">Desenvolvimento web · HTML · CSS · JS</p>
-        <h1>Seu site sai do <span class="hl">rascunho</span> e vai pro ar rápido.</h1>
-        <p class="lead">Crio sites institucionais, landing pages e sistemas sob medida — do primeiro esboço à publicação. Atendimento direto, sem intermediário e sem enrolação.</p>
-        <div class="hero-actions">
-          <a href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener" class="btn btn-primary">Chamar no WhatsApp →</a>
-          <a href="#servicos" class="btn btn-ghost">Ver serviços</a>
-        </div>
-        <p class="hero-note"><span class="ping"></span>Respondo pessoalmente pelo WhatsApp</p>
-      </div>
-
-      <div class="blueprint-card">
-        <svg class="browser-frame" viewBox="0 0 460 300" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="10" width="440" height="280" rx="6" fill="none" stroke="#4FD1FF" stroke-width="1.5" class="draw"/>
-          <line x1="10" y1="46" x2="450" y2="46" stroke="#4FD1FF" stroke-width="1.5" class="draw"/>
-          <circle cx="28" cy="28" r="4" fill="none" stroke="#4FD1FF" stroke-width="1.3" class="draw3"/>
-          <circle cx="44" cy="28" r="4" fill="none" stroke="#4FD1FF" stroke-width="1.3" class="draw3"/>
-          <circle cx="60" cy="28" r="4" fill="none" stroke="#4FD1FF" stroke-width="1.3" class="draw3"/>
-          <rect x="30" y="66" width="180" height="18" rx="2" fill="none" stroke="#93AECB" stroke-width="1.2" class="draw2"/>
-          <rect x="30" y="98" width="260" height="8" rx="2" fill="none" stroke="#3E6FA8" stroke-width="1" class="draw2"/>
-          <rect x="30" y="114" width="220" height="8" rx="2" fill="none" stroke="#3E6FA8" stroke-width="1" class="draw2"/>
-          <rect x="30" y="140" width="120" height="34" rx="4" fill="none" stroke="#FFB627" stroke-width="1.3" class="draw2"/>
-          <rect x="30" y="196" width="130" height="80" rx="4" fill="rgba(79,209,255,0.08)" stroke="#4FD1FF" stroke-width="1.2" class="fade-block"/>
-          <rect x="170" y="196" width="130" height="80" rx="4" fill="rgba(79,209,255,0.08)" stroke="#4FD1FF" stroke-width="1.2" class="fade-block"/>
-          <rect x="310" y="196" width="130" height="80" rx="4" fill="rgba(79,209,255,0.08)" stroke="#4FD1FF" stroke-width="1.2" class="fade-block"/>
-        </svg>
+        <p class="label">WHATSAPP</p>
+        <p class="number">(51) 98580-3243</p>
       </div>
     </div>
-  </section>
-
-  <!-- SERVIÇOS -->
-  <section id="servicos">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">O que eu construo</p>
-        <h2>Do site simples ao sistema com dados em tempo real.</h2>
-        <p>Cada projeto é montado sob medida — sem templates genéricos que não conversam com o seu negócio.</p>
-      </div>
-      <div class="services-grid reveal">
-        <div class="service">
-          <p class="tag">01 · Presença</p>
-          <h3>Sites institucionais</h3>
-          <p>Site profissional para sua empresa aparecer bem no Google e passar confiança a quem visita.</p>
-        </div>
-        <div class="service">
-          <p class="tag">02 · Conversão</p>
-          <h3>Landing pages</h3>
-          <p>Página única, focada em fazer o visitante entrar em contato — ideal para campanhas e anúncios.</p>
-        </div>
-        <div class="service">
-          <p class="tag">03 · Sistemas</p>
-          <h3>Sistemas sob medida</h3>
-          <p>Painéis, dashboards e integrações com banco de dados em tempo real, feitos para a necessidade específica do seu negócio.</p>
-        </div>
-      </div>
+  </div>
+  <div class="contato">
+    <div class="contato-card">
+      <h3>WhatsApp</h3>
+      <p>Resposta mais rápida — fale direto comigo.</p>
+      <a class="btn-primary" style="display:inline-block;" href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20quero%20um%20or%C3%A7amento." target="_blank">WhatsApp (51) 98580-3243</a>
     </div>
-  </section>
-
-  <!-- PROCESSO -->
-  <section id="processo">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Como funciona</p>
-        <h2>Quatro etapas, do briefing à entrega.</h2>
-      </div>
-      <div class="process reveal">
-        <div class="sheet">
-          <p class="code">FL-01</p>
-          <h4>Briefing</h4>
-          <p>Conversamos pelo WhatsApp sobre o que seu negócio precisa e o que o site vai resolver.</p>
-        </div>
-        <div class="sheet">
-          <p class="code">FL-02</p>
-          <h4>Protótipo</h4>
-          <p>Monto uma primeira versão para você visualizar antes de qualquer linha de código final.</p>
-        </div>
-        <div class="sheet">
-          <p class="code">FL-03</p>
-          <h4>Desenvolvimento</h4>
-          <p>Construo o site com HTML, CSS e JS, testando em celular e computador.</p>
-        </div>
-        <div class="sheet">
-          <p class="code">FL-04</p>
-          <h4>Entrega</h4>
-          <p>Site publicado, revisado com você e pronto para divulgar.</p>
-        </div>
-      </div>
+    <div class="contato-card">
+      <h3>Prefere e-mail?</h3>
+      <p>Preencha, escreva o que precisa e envie.</p>
+      <form onsubmit="event.preventDefault(); const n=this.nome.value,e=this.email.value,m=this.mensagem.value; window.location.href=`mailto:luissilva0238472@gmail.com?subject=Contato pelo site&body=Nome: ${encodeURIComponent(n)}%0AE-mail: ${encodeURIComponent(e)}%0A%0A${encodeURIComponent(m)}`;">
+        <input name="nome" type="text" placeholder="Seu nome" required />
+        <input name="email" type="email" placeholder="Seu e-mail" required />
+        <textarea name="mensagem" placeholder="O que você precisa" required></textarea>
+        <button class="btn-primary" type="submit">Enviar mensagem →</button>
+      </form>
     </div>
-  </section>
-
-  <!-- SOBRE -->
-  <section id="sobre">
-    <div class="wrap about-grid">
-      <div class="reveal">
-        <p class="eyebrow">Sobre</p>
-        <h2 style="font-family:var(--mono); font-size:1.9rem; margin:14px 0 18px;">Everton Leite</h2>
-        <p>Desenvolvedor web trabalhando com HTML, CSS e JavaScript, do site institucional mais simples a sistemas com dados em tempo real.</p>
-        <p>Atendimento direto — sem agência no meio, sem prazo escondido. Você fala comigo e acompanha o projeto do início ao fim.</p>
-      </div>
-      <div class="reveal">
-        <p class="eyebrow">Tecnologias</p>
-        <ul class="stack-list">
-          <li>HTML5</li>
-          <li>CSS3</li>
-          <li>JavaScript</li>
-          <li>Firebase</li>
-          <li>Bancos em tempo real</li>
-          <li>Integrações via API</li>
-          <li>Design responsivo</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- INVESTIMENTO -->
-  <section id="investimento">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Investimento</p>
-        <h2>Valores claros, sem letra miúda.</h2>
-        <p>Cada projeto é único, então os valores abaixo são faixas de referência. O orçamento fechado sai depois de conversarmos sobre o que você precisa — sem surpresa na hora de pagar.</p>
-      </div>
-      <div class="pricing-grid reveal">
-
-        <div class="price-card">
-          <p class="tag">Básico</p>
-          <h3>Landing page</h3>
-          <p class="price">R$ 800 <span>– R$ 2.500</span></p>
-          <p class="price-desc">Página única, focada em fazer o visitante entrar em contato. Ideal para campanhas e divulgação de um serviço específico.</p>
-          <ul class="price-list">
-            <li>Design responsivo (celular e computador)</li>
-            <li>Botão de WhatsApp integrado</li>
-            <li>Até 2 rodadas de ajustes</li>
-          </ul>
-          <a href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20de%20landing%20page." target="_blank" rel="noopener" class="btn btn-ghost price-btn">Pedir orçamento</a>
-        </div>
-
-        <div class="price-card featured">
-          <p class="tag">Padrão</p>
-          <h3>Site institucional</h3>
-          <p class="price">R$ 1.200 <span>– R$ 4.000</span></p>
-          <p class="price-desc">Site completo para apresentar sua empresa, com várias páginas e formulário de contato — a opção mais pedida.</p>
-          <ul class="price-list">
-            <li>Até 8 páginas (Início, Serviços, Sobre, Contato...)</li>
-            <li>Design responsivo e otimizado para o Google</li>
-            <li>Formulário de contato + WhatsApp integrado</li>
-            <li>Até 3 rodadas de ajustes</li>
-          </ul>
-          <a href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20de%20site%20institucional." target="_blank" rel="noopener" class="btn btn-primary price-btn">Pedir orçamento</a>
-        </div>
-
-        <div class="price-card">
-          <p class="tag">Sob medida</p>
-          <h3>Sistema com dados em tempo real</h3>
-          <p class="price">a partir de R$ 3.000</p>
-          <p class="price-desc">Painéis, dashboards e sistemas com banco de dados em tempo real, feitos sob medida para a necessidade do seu negócio.</p>
-          <ul class="price-list">
-            <li>Levantamento de requisitos e protótipo</li>
-            <li>Integrações (banco de dados, APIs, login)</li>
-            <li>Suporte após a entrega</li>
-          </ul>
-          <a href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20de%20sistema%20sob%20medida." target="_blank" rel="noopener" class="btn btn-ghost price-btn">Pedir orçamento</a>
-        </div>
-
-      </div>
-      <p class="price-footnote">Valores de referência para 2026, para projetos como desenvolvedor autônomo. Domínio e hospedagem não estão inclusos e são orçados à parte, conforme a necessidade do projeto.</p>
-    </div>
-  </section>
-
-  <!-- CONTATO -->
-  <section id="contato">
-    <div class="wrap">
-      <div class="contact-card reveal">
-        <div>
-          <h2>Vamos tirar seu site do papel?</h2>
-          <p>Me chame pelo WhatsApp e conte o que você precisa. Costumo responder no mesmo dia.</p>
-        </div>
-        <div class="contact-actions">
-          <a class="contact-btn whatsapp" href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener">
-            <span class="icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.87 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.85 1h.003A7.94 7.94 0 0 0 20 12a7.86 7.86 0 0 0-2.4-5.68Zm-5.55 12.2h-.003a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.65.66-2.43-.16-.25a6.6 6.6 0 1 1 5.6 3.09Zm3.62-4.94c-.2-.1-1.17-.58-1.35-.64s-.32-.1-.45.1-.5.64-.62.77-.23.15-.43.05a5.4 5.4 0 0 1-1.6-.98 6 6 0 0 1-1.1-1.38c-.12-.2 0-.3.09-.4.1-.1.2-.23.3-.35.1-.11.13-.2.2-.33a.36.36 0 0 0 0-.35c-.05-.1-.45-1.08-.62-1.48-.16-.38-.33-.33-.45-.34h-.38a.74.74 0 0 0-.53.25 2.24 2.24 0 0 0-.7 1.67 3.9 3.9 0 0 0 .82 2.06 8.9 8.9 0 0 0 3.4 3.01c.48.2.85.33 1.14.42.48.15.92.13 1.26.08.38-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.09-.18-.14-.38-.24Z" fill="#06210F"/></svg>
-            </span>
-            <span>
-              <span class="label">WhatsApp</span><br>
-              <span class="value">(51) 98580-3243</span>
-            </span>
-          </a>
-        </div>
-      </div>
-
-      <div class="email-form-card reveal" id="form-email">
-        <p class="eyebrow">Prefere e-mail?</p>
-        <h3>Preencha, escreva o que precisa e envie.</h3>
-        <form id="emailForm" class="email-form">
-          <div class="field">
-            <label for="fName">Seu nome</label>
-            <input type="text" id="fName" name="fName" required>
-          </div>
-          <div class="field">
-            <label for="fEmail">Seu e-mail</label>
-            <input type="email" id="fEmail" name="fEmail" required>
-          </div>
-          <div class="field field-full">
-            <label for="fMsg">O que você precisa</label>
-            <textarea id="fMsg" name="fMsg" rows="4" required placeholder="Conte um pouco sobre o site ou sistema que você precisa..."></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary field-full" id="fSubmit">Enviar mensagem →</button>
-          <p class="field-note field-full" id="fNote">Ao enviar, seu app de e-mail vai abrir com a mensagem já pronta para luissilva0238472@gmail.com — é só confirmar o envio.</p>
-        </form>
-      </div>
-    </div>
-  </section>
-
-</main>
+  </div>
+</section>
 
 <footer>
-  <div class="wrap footer-row">
-    <span>© <span id="year"></span> Everton Luís da Silva Leite. Todos os direitos reservados.</span>
-    <span>Rio Grande do Sul, BR</span>
-  </div>
+  © Everton Luís da Silva Leite. Todos os direitos reservados.<br>Rio Grande do Sul, BR
 </footer>
 
-<a class="float-wa" href="https://wa.me/5551985803243?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.87 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.85 1h.003A7.94 7.94 0 0 0 20 12a7.86 7.86 0 0 0-2.4-5.68Zm-5.55 12.2h-.003a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.65.66-2.43-.16-.25a6.6 6.6 0 1 1 5.6 3.09Zm3.62-4.94c-.2-.1-1.17-.58-1.35-.64s-.32-.1-.45.1-.5.64-.62.77-.23.15-.43.05a5.4 5.4 0 0 1-1.6-.98 6 6 0 0 1-1.1-1.38c-.12-.2 0-.3.09-.4.1-.1.2-.23.3-.35.1-.11.13-.2.2-.33a.36.36 0 0 0 0-.35c-.05-.1-.45-1.08-.62-1.48-.16-.38-.33-.33-.45-.34h-.38a.74.74 0 0 0-.53.25 2.24 2.24 0 0 0-.7 1.67 3.9 3.9 0 0 0 .82 2.06 8.9 8.9 0 0 0 3.4 3.01c.48.2.85.33 1.14.42.48.15.92.13 1.26.08.38-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.09-.18-.14-.38-.24Z" fill="#06210F"/></svg>
-</a>
+<!-- Chat widget -->
+<button id="chat-toggle" aria-label="Abrir chat">💬</button>
+<div id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-avatar">EL</div>
+    <div class="chat-header-text">
+      <p>Everton Leite/dev</p>
+      <span>assistente virtual · online</span>
+    </div>
+    <button class="chat-close" onclick="toggleChat(false)">✕</button>
+  </div>
+  <div id="chat-messages"></div>
+  <div class="suggestions" id="chat-suggestions">
+    <button class="sugg-btn" onclick="sendSuggestion(this)">Quanto custa um site institucional?</button>
+    <button class="sugg-btn" onclick="sendSuggestion(this)">Como funciona o processo?</button>
+    <button class="sugg-btn" onclick="sendSuggestion(this)">Vocês fazem sistemas com login?</button>
+  </div>
+  <div class="chat-input-row">
+    <input id="chat-input" type="text" placeholder="Digite sua pergunta..." onkeydown="if(event.key==='Enter')sendMessage();" />
+    <button id="chat-send" onclick="sendMessage()">➤</button>
+  </div>
+</div>
 
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+  // ⚠️ Troque pela URL do seu Worker depois de publicá-lo (veja README.md)
+  const WORKER_URL = "https://SEU-WORKER.workers.dev";
 
-  const menuToggle = document.getElementById('menuToggle');
-  const navLinks = document.getElementById('navLinks');
-  menuToggle.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
-    menuToggle.setAttribute('aria-expanded', isOpen);
-  });
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-  }));
+  let history = [];
+  const messagesEl = document.getElementById('chat-messages');
+  const inputEl = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('chat-send');
+  const suggestionsEl = document.getElementById('chat-suggestions');
 
-  const emailForm = document.getElementById('emailForm');
-  const fNote = document.getElementById('fNote');
-  emailForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('fName').value.trim();
-    const from = document.getElementById('fEmail').value.trim();
-    const msg = document.getElementById('fMsg').value.trim();
+  function toggleChat(force){
+    const panel = document.getElementById('chat-panel');
+    const willOpen = force !== undefined ? force : !panel.classList.contains('open');
+    panel.classList.toggle('open', willOpen);
+    if(willOpen && messagesEl.children.length === 0){
+      addMessage('bot', 'Oi! 👋 Sou o assistente do Everton. Posso te ajudar com dúvidas sobre serviços, valores e como funciona o processo. O que você quer saber?');
+    }
+  }
+  document.getElementById('chat-toggle').addEventListener('click', () => toggleChat());
 
-    const subject = `Orçamento de site — ${name}`;
-    const body = `Nome: ${name}\nE-mail para retorno: ${from}\n\nMensagem:\n${msg}`;
-    const mailto = `mailto:luissilva0238472@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  function addMessage(role, text){
+    const div = document.createElement('div');
+    div.className = 'msg ' + (role === 'user' ? 'user' : 'bot');
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
 
-    window.location.href = mailto;
+  function sendSuggestion(btn){
+    inputEl.value = btn.textContent;
+    sendMessage();
+  }
 
-    fNote.textContent = 'Abrindo seu app de e-mail com a mensagem pronta — é só confirmar o envio.';
-    fNote.classList.add('sent');
-  });
+  async function sendMessage(){
+    const text = inputEl.value.trim();
+    if(!text || sendBtn.disabled) return;
+    suggestionsEl.style.display = 'none';
+    addMessage('user', text);
+    history.push({ role: 'user', content: text });
+    inputEl.value = '';
+    sendBtn.disabled = true;
 
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting){
-        entry.target.classList.add('in');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  revealEls.forEach(el => io.observe(el));
+    const typing = document.createElement('div');
+    typing.className = 'typing';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    messagesEl.appendChild(typing);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+
+    try{
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history })
+      });
+      const data = await res.json();
+      typing.remove();
+      const reply = data.reply || 'Desculpa, não consegui responder agora. Tenta de novo ou chama no WhatsApp: (51) 98580-3243.';
+      addMessage('bot', reply);
+      history.push({ role: 'assistant', content: reply });
+    }catch(err){
+      typing.remove();
+      addMessage('bot', 'Deu um erro aqui do meu lado. Tenta novamente, ou chama direto no WhatsApp: (51) 98580-3243.');
+    }finally{
+      sendBtn.disabled = false;
+    }
+  }
 </script>
 
 </body>
-    </html>
+</html>
