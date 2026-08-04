@@ -403,14 +403,23 @@
 </div>
 
 <script>
-  // ⚠️ Troque pela URL do seu Worker depois de publicá-lo (veja README.md)
-  const WORKER_URL = "https://everton-desenvolvimento-web.pages.dev/";
+  
+  const GROQ_API_KEY = "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";
+  
+  // Escolha o modelo da Groq
+  const GROQ_MODEL = "llama-3.3-70b-versatile";
 
   let history = [];
   const messagesEl = document.getElementById('chat-messages');
   const inputEl = document.getElementById('chat-input');
   const sendBtn = document.getElementById('chat-send');
   const suggestionsEl = document.getElementById('chat-suggestions');
+
+  // System Prompt para instruir o assistente sobre o seu negócio
+  const SYSTEM_PROMPT = {
+    role: "system",
+    content: "Você é o assistente virtual de Everton Leite, desenvolvedor web especializado em sites institucionais, landing pages e sistemas sob medida com HTML, CSS, JavaScript e Firebase. Seja prestativo, objetivo e amigável. Sempre direcione o cliente para o WhatsApp (51) 98580-3243 ou para o orçamento quando for pertinente."
+  };
 
   function toggleChat(force){
     const panel = document.getElementById('chat-panel');
@@ -451,19 +460,37 @@
     messagesEl.scrollTop = messagesEl.scrollHeight;
 
     try{
-      const res = await fetch(WORKER_URL, {
+      const messagesPayload = [SYSTEM_PROMPT, ...history];
+
+      const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history })
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${GROQ_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: GROQ_MODEL,
+          messages: messagesPayload,
+          temperature: 0.7,
+          max_tokens: 500
+        })
       });
+
       const data = await res.json();
       typing.remove();
-      const reply = data.reply || 'Desculpa, não consegui responder agora. Tenta de novo ou chama no WhatsApp: (51) 98580-3243.';
-      addMessage('bot', reply);
-      history.push({ role: 'assistant', content: reply });
+
+      if (data.choices && data.choices.length > 0) {
+        const reply = data.choices[0].message.content;
+        addMessage('bot', reply);
+        history.push({ role: 'assistant', content: reply });
+      } else {
+        throw new Error(data.error?.message || 'Erro na resposta da API');
+      }
+
     }catch(err){
       typing.remove();
-      addMessage('bot', 'Deu um erro aqui do meu lado. Tenta novamente, ou chama direto no WhatsApp: (51) 98580-3243.');
+      console.error(err);
+      addMessage('bot', 'Deu um erro aqui no chat. Tente novamente ou me chame direto no WhatsApp: (51) 98580-3243.');
     }finally{
       sendBtn.disabled = false;
     }
