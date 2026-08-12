@@ -221,13 +221,6 @@
   .typing span:nth-child(2){animation-delay:.15s;}
   .typing span:nth-child(3){animation-delay:.3s;}
   @keyframes bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-4px);}}
-  .suggestions{display:flex;flex-direction:column;gap:6px;padding:0 16px 12px;}
-  .sugg-btn{
-    text-align:left;font-size:12px;color:var(--muted);background:var(--card);
-    border:1px solid var(--border);border-radius:8px;padding:10px 12px;cursor:pointer;
-    font-family:inherit;
-  }
-  .sugg-btn:hover{color:var(--text);border-color:var(--cyan);}
   .chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border-soft);background:var(--bg-2);}
   #chat-input{
     flex:1;background:var(--card);border:1px solid var(--border);border-radius:10px;
@@ -391,11 +384,6 @@
     <button class="chat-close" onclick="toggleChat(false)">✕</button>
   </div>
   <div id="chat-messages"></div>
-  <div class="suggestions" id="chat-suggestions">
-    <button class="sugg-btn" onclick="sendSuggestion(this)">Quanto custa um site institucional?</button>
-    <button class="sugg-btn" onclick="sendSuggestion(this)">Como funciona o processo?</button>
-    <button class="sugg-btn" onclick="sendSuggestion(this)">Vocês fazem sistemas com login?</button>
-  </div>
   <div class="chat-input-row">
     <input id="chat-input" type="text" placeholder="Digite sua pergunta..." onkeydown="if(event.key==='Enter')sendMessage();" />
     <button id="chat-send" onclick="sendMessage()">➤</button>
@@ -404,7 +392,7 @@
 
 <script>
   
-  const GROQ_API_KEY = "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";
+  const GROQ_API_KEY = "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";
   
   // Escolha o modelo da Groq
   const GROQ_MODEL = "llama-3.3-70b-versatile";
@@ -413,12 +401,11 @@
   const messagesEl = document.getElementById('chat-messages');
   const inputEl = document.getElementById('chat-input');
   const sendBtn = document.getElementById('chat-send');
-  const suggestionsEl = document.getElementById('chat-suggestions');
 
-  // System Prompt para instruir o assistente sobre o seu negócio
+  // System Prompt para instruir o assistente sobre o seu negócio e basear as respostas estritamente no site
   const SYSTEM_PROMPT = {
     role: "system",
-    content: "Você é o assistente virtual de Everton Leite, desenvolvedor web especializado em sites institucionais, landing pages e sistemas sob medida com HTML, CSS, JavaScript e Firebase. Seja prestativo, objetivo e amigável. Sempre direcione o cliente para o WhatsApp (51) 98580-3243 ou para o orçamento quando for pertinente."
+    content: "Você é o assistente virtual de Everton Leite, desenvolvedor web especializado em sites institucionais, landing pages e sistemas sob medida com HTML, CSS, JavaScript e Firebase. Responda estritamente com base nas informações contidas neste site (serviços prestados, etapas do processo, sobre o desenvolvedor e formas de contato). Seja prestativo, objetivo e amigável. Sempre direcione o cliente para o WhatsApp (51) 98580-3243 ou para o formulário de orçamento quando for pertinente."
   };
 
   function toggleChat(force){
@@ -439,15 +426,9 @@
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }
 
-  function sendSuggestion(btn){
-    inputEl.value = btn.textContent;
-    sendMessage();
-  }
-
   async function sendMessage(){
     const text = inputEl.value.trim();
     if(!text || sendBtn.disabled) return;
-    suggestionsEl.style.display = 'none';
     addMessage('user', text);
     history.push({ role: 'user', content: text });
     inputEl.value = '';
@@ -464,7 +445,7 @@
 
       const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
         method: 'POST',
-        headers: {
+      headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${GROQ_API_KEY}`
         },
